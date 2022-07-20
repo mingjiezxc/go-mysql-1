@@ -427,7 +427,6 @@ func (c *Canal) prepareSyncer() error {
 		TimestampStringLocation: c.cfg.TimestampStringLocation,
 		TLSConfig:               c.cfg.TLSConfig,
 		Logger:                  c.cfg.Logger,
-		Dialer:                  c.cfg.Dialer,
 	}
 
 	if strings.Contains(c.cfg.Addr, "/") {
