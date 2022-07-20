@@ -56,6 +56,8 @@ func NewConn(conn net.Conn, user string, password string, h Handler) (*Conn, err
 		packetConn = packet.NewConn(conn)
 	}
 
+	salt, _ := RandomBuf(20)
+
 	c := &Conn{
 		Conn:               packetConn,
 		serverConf:         defaultServer,
@@ -63,7 +65,7 @@ func NewConn(conn net.Conn, user string, password string, h Handler) (*Conn, err
 		h:                  h,
 		connectionID:       atomic.AddUint32(&baseConnID, 1),
 		stmts:              make(map[uint32]*Stmt),
-		salt:               RandomBuf(20),
+		salt:               salt,
 	}
 	c.closed.Set(false)
 
@@ -84,6 +86,7 @@ func NewCustomizedConn(conn net.Conn, serverConf *Server, p CredentialProvider, 
 		packetConn = packet.NewConn(conn)
 	}
 
+	salt, _ := RandomBuf(20)
 	c := &Conn{
 		Conn:               packetConn,
 		serverConf:         serverConf,
@@ -91,7 +94,7 @@ func NewCustomizedConn(conn net.Conn, serverConf *Server, p CredentialProvider, 
 		h:                  h,
 		connectionID:       atomic.AddUint32(&baseConnID, 1),
 		stmts:              make(map[uint32]*Stmt),
-		salt:               RandomBuf(20),
+		salt:               salt,
 	}
 	c.closed.Set(false)
 

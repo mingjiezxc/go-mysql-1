@@ -69,7 +69,7 @@ func (c *Conn) writeAuthSwitchRequest(newAuthPluginName string) error {
 	data = append(data, []byte(newAuthPluginName)...)
 	data = append(data, 0x00)
 	// new auth data
-	c.salt = RandomBuf(20)
+	c.salt, _ = RandomBuf(20)
 	data = append(data, c.salt...)
 	// the online doc states it's a string.EOF, however, the actual MySQL server add a \NUL to the end, without it, the
 	// official MySQL client will fail.

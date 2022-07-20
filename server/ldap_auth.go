@@ -22,7 +22,7 @@ func NewConnLdapAuth(conn net.Conn, serverConf *Server, l Ldap, h Handler) (*Con
 		packetConn = packet.NewConn(conn)
 	}
 
-	salt := RandomBuf(20)
+	salt,_ := RandomBuf(20)
 
 	c := &Conn{
 		Conn:         packetConn,
